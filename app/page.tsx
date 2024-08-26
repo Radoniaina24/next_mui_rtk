@@ -1,23 +1,14 @@
 import type { Metadata } from "next";
-import { Button } from "@mui/material";
-import { GridRowsProp, GridColDef, DataGrid } from "@mui/x-data-grid";
+import { Box, Container, Typography } from "@mui/material";
 export const metadata: Metadata = {
   title: "Redux Toolkit",
 };
-const rows: GridRowsProp = [
-  { id: 1, col1: "Hello", col2: "World" },
-  { id: 2, col1: "DataGridPro", col2: "is Awesome" },
-  { id: 3, col1: "MUI", col2: "is Amazing" },
-];
-
-const columns: GridColDef[] = [
-  { field: "col1", headerName: "Column 1", width: 150 },
-  { field: "col2", headerName: "Column 2", width: 150 },
-];
 export default function IndexPage() {
   return (
-    <div style={{ height: 300, width: "100%" }}>
-      <DataGrid rows={rows} columns={columns} />
-    </div>
+    <Container maxWidth="lg">
+      <Box>
+        <Typography sx={{ textAlign: "center" }}>Permission</Typography>
+      </Box>
+    </Container>
   );
 }
