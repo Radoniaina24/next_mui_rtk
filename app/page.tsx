@@ -1,14 +1,17 @@
 import type { Metadata } from "next";
 import { Box, Container, Typography } from "@mui/material";
+import { PermissionProvider } from "@/lib/context/PermissionContext";
 export const metadata: Metadata = {
   title: "Redux Toolkit",
 };
 export default function IndexPage() {
   return (
     <Container maxWidth="lg">
-      <Box>
-        <Typography sx={{ textAlign: "center" }}>Permission</Typography>
-      </Box>
+      <PermissionProvider>
+        <Box>
+          <Typography sx={{ textAlign: "center" }}>Permission</Typography>
+        </Box>
+      </PermissionProvider>
     </Container>
   );
 }

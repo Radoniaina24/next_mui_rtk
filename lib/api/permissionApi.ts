@@ -17,7 +17,7 @@ export const permissionAPI = createApi({
       providesTags: ["parametre"],
     }),
     getPermissionById: builder.query({
-      query: ({ id }) => {
+      query: (id) => {
         return {
           url: `permission/${id}`,
           method: "GET",
