@@ -38,11 +38,25 @@ function HolidayProvider({ children }: { children: React.ReactNode }) {
   }
   async function onSubmit(values: any) {
     if (id) {
-      await updateHoliday({ updateHoliday: values, id });
+      const startDate = dayjs(values.startDate).toDate().toDateString();
+      const endDate = dayjs(values.endDate).toDate().toDateString();
+      const putHoliday = {
+        name: values.name,
+        startDate,
+        endDate,
+      };
+      await updateHoliday({ updateHoliday: putHoliday, id });
       formik.resetForm();
       handleCloseModalHoliday();
     } else {
-      await addHoliday(values);
+      const startDate = dayjs(values.startDate).toDate().toDateString();
+      const endDate = dayjs(values.endDate).toDate().toDateString();
+      const newHoliday = {
+        name: values.name,
+        startDate,
+        endDate,
+      };
+      await addHoliday(newHoliday);
       formik.resetForm();
       handleCloseModalHoliday();
     }

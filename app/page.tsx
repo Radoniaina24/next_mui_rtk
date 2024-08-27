@@ -3,6 +3,7 @@ import { Box, Container, Typography } from "@mui/material";
 import { PermissionProvider } from "@/lib/context/PermissionContext";
 import PermissionList from "./features/permission/liste";
 import { HolidayProvider } from "@/lib/context/HolidayContext";
+import HolidayList from "./features/Holiday/liste";
 export const metadata: Metadata = {
   title: "Redux Toolkit",
 };
@@ -30,6 +31,7 @@ export default function IndexPage() {
           >
             Holiday
           </Typography>
+          <HolidayList />
         </Box>
       </HolidayProvider>
     </Container>

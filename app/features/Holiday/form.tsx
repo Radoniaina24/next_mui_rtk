@@ -1,6 +1,6 @@
 import { useGetHolidayByIdQuery } from "@/lib/api/holidayApi";
 import { useHolidayContext } from "@/lib/context/HolidayContext";
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Box, Button, FormControl, TextField, Typography } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import React, { useEffect } from "react";
@@ -12,13 +12,13 @@ export default function AddFormHoliday() {
     formik;
   const { data: holiday, isLoading } = useGetHolidayByIdQuery(id);
   const holidayEdit = holiday?.data;
-  //   useEffect(() => {
-  //     if (id) {
-  //       setFieldValue("event", holidayEdit?.event);
-  //       setFieldValue("dayCount", holidayEdit?.dayCount);
-  //       setFieldValue("voucher", holidayEdit?.voucher);
-  //     }
-  //   }, [holiday, id]);
+  useEffect(() => {
+    if (id) {
+      setFieldValue("name", holidayEdit?.name);
+      setFieldValue("startDate", holidayEdit?.startDate);
+      setFieldValue("endDate", holidayEdit?.endDate);
+    }
+  }, [holiday, id]);
 
   if (isLoading) return <p>Loading ...</p>;
   return (
@@ -43,18 +43,25 @@ export default function AddFormHoliday() {
         helperText={touched.name && errors.name}
       />
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DatePicker
-          name="startDate"
-          label="Date de début"
-          onChange={handleChange}
-          value={dayjs(values.startDate)}
-        />
-        <DatePicker
-          name="endDate"
-          label="Date de fin"
-          onChange={handleChange}
-          value={dayjs(values.endDate)}
-        />
+        <FormControl fullWidth>
+          <DatePicker
+            name="startDate"
+            label="Date de début"
+            onChange={handleChange}
+            value={dayjs(values.startDate)}
+            onChange={(value) => setFieldValue("startDate", value, true)}
+            sx={{ marginY: "1.5rem" }}
+            required
+          />
+          <DatePicker
+            name="endDate"
+            label="Date de fin"
+            onChange={handleChange}
+            value={dayjs(values.endDate)}
+            onChange={(value) => setFieldValue("endDate", value, true)}
+            required
+          />
+        </FormControl>
       </LocalizationProvider>
 
       <Box sx={{ display: "flex", justifyContent: "end" }}>
