@@ -34,7 +34,7 @@ export default function AddFormPermission() {
         fullWidth
         name="event"
         label="Evenement"
-        value={values?.event}
+        value={values?.event || ""}
         onChange={handleChange}
         error={touched.event && Boolean(errors.event)}
         helperText={touched.event && errors.event}
@@ -44,7 +44,7 @@ export default function AddFormPermission() {
         fullWidth
         name="voucher"
         label="Pièce justificative"
-        value={values?.voucher}
+        value={values?.voucher || ""}
         onChange={handleChange}
         error={touched.voucher && Boolean(errors.voucher)}
         helperText={touched.voucher && errors.voucher}
@@ -55,7 +55,7 @@ export default function AddFormPermission() {
         type="number"
         name="dayCount"
         label="Nombre de jour"
-        value={values?.dayCount}
+        value={values?.dayCount || ""}
         onChange={handleChange}
         error={touched.dayCount && Boolean(errors.dayCount)}
         helperText={touched.dayCount && errors.dayCount}
