@@ -36,9 +36,9 @@ export const permissionAPI = createApi({
       invalidatesTags: ["parametre"],
     }),
     updatePermission: builder.mutation({
-      query: (updatePermission) => {
+      query: ({ updatePermission, id }) => {
         return {
-          url: `permission/${updatePermission.id}`,
+          url: `permission/${id}`,
           method: "PUT",
           body: updatePermission,
         };
