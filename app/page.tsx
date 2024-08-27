@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Box, Container, Typography } from "@mui/material";
 import { PermissionProvider } from "@/lib/context/PermissionContext";
 import PermissionList from "./features/permission/liste";
+import { HolidayProvider } from "@/lib/context/HolidayContext";
 export const metadata: Metadata = {
   title: "Redux Toolkit",
 };
@@ -20,6 +21,17 @@ export default function IndexPage() {
           <PermissionList />
         </Box>
       </PermissionProvider>
+      <HolidayProvider>
+        <Box sx={{ marginY: "60px" }}>
+          <Typography
+            variant="h5"
+            component={"h3"}
+            sx={{ textAlign: "center", fontWeight: "bold" }}
+          >
+            Holiday
+          </Typography>
+        </Box>
+      </HolidayProvider>
     </Container>
   );
 }
