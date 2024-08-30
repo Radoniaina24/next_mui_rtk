@@ -1,10 +1,10 @@
 export default interface Other {
   id: string;
-  workDay: number;
-  workHour: number;
-  monthlyLeave: number;
-  accruate: number;
+  workDay: string;
+  workHour: string;
+  monthlyLeave: string;
+  accruate: string;
   dayOff: Array<number>;
-  coefficient: number;
-  isFormule: Boolean;
+  coefficient: string;
+  isFormule: boolean;
 }

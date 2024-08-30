@@ -4,6 +4,7 @@ import { counterSlice } from "./features/counter/counterSlice";
 import { quotesApiSlice } from "./features/quotes/quotesApiSlice";
 import { permissionAPI } from "./api/permissionApi";
 import { holidayAPI } from "./api/holidayApi";
+import { otherAPI } from "./api/otherApi";
 
 // `combineSlices` automatically combines the reducers using
 // their `reducerPath`s, therefore we no longer need to call `combineReducers`.
@@ -20,13 +21,15 @@ export const makeStore = () => {
     reducer: {
       [permissionAPI.reducerPath]: permissionAPI.reducer,
       [holidayAPI.reducerPath]: holidayAPI.reducer,
+      [otherAPI.reducerPath]: otherAPI.reducer,
     },
     // Adding the api middleware enables caching, invalidation, polling,
     // and other useful features of `rtk-query`.
     middleware: (getDefaultMiddleware) => {
       return getDefaultMiddleware().concat(
         permissionAPI.middleware,
-        holidayAPI.middleware
+        holidayAPI.middleware,
+        otherAPI.middleware
       );
     },
   });

@@ -8,7 +8,13 @@ import {
   GridToolbar,
   GridCellParams,
 } from "@mui/x-data-grid";
-import { Box, Button, CircularProgress, Container } from "@mui/material";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Container,
+  Typography,
+} from "@mui/material";
 import React, { useState } from "react";
 import { usePermissionContext } from "@/lib/context/PermissionContext";
 import { useGetPermissionQuery } from "@/lib/api/permissionApi";
@@ -17,7 +23,8 @@ import AddFormPermission from "./form";
 import AlertlDelete from "./alertModaleToDeletePermission";
 export default function PermissionList() {
   const { handleOpenModalPermission } = usePermissionContext();
-  const { data, isLoading } = useGetPermissionQuery("");
+  const { data, isLoading, error } = useGetPermissionQuery("");
+  console.log(error);
   const { setId, handleOpenAlertToDeletePermission } = usePermissionContext();
   const columns: GridColDef[] = [
     { field: "event", headerName: "Evenement", width: 300 },
@@ -62,7 +69,37 @@ export default function PermissionList() {
         <CircularProgress color="inherit" />
       </Box>
     );
-
+  if (error?.data)
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "400px",
+        }}
+      >
+        <Typography color="error" variant="h5" component={"p"}>
+          Mauvaise requête
+        </Typography>
+      </Box>
+    );
+  if (error) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "400px",
+        }}
+      >
+        <Typography color="error" variant="h5" component={"p"}>
+          Network Error
+        </Typography>
+      </Box>
+    );
+  }
   return (
     <Box sx={{ marginTop: "45px" }}>
       <Container maxWidth="lg">

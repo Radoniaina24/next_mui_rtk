@@ -1,12 +1,21 @@
 import { useGetHolidayByIdQuery } from "@/lib/api/holidayApi";
 import { useHolidayContext } from "@/lib/context/HolidayContext";
-import { Box, Button, FormControl, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  FormControl,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import React, { useEffect } from "react";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { FormHelperText } from "@mui/material";
+import SubmitButton from "@/app/components/button/submitBtn";
+import Loading from "@/app/components/progress/loading";
 export default function AddFormHoliday() {
   const { formik, responseAddHoliday, id } = useHolidayContext();
   const { values, handleChange, touched, errors, handleSubmit, setFieldValue } =
@@ -21,7 +30,7 @@ export default function AddFormHoliday() {
     }
   }, [holiday, id]);
 
-  if (isLoading) return <p>Loading ...</p>;
+  if (id && isLoading) return <Loading />;
   return (
     <form
       onSubmit={handleSubmit}
@@ -74,20 +83,8 @@ export default function AddFormHoliday() {
         </FormControl>
       </LocalizationProvider>
 
-      <Box sx={{ display: "flex", justifyContent: "end" }}>
-        <Button
-          size="small"
-          type="submit"
-          variant="contained"
-          color="success"
-          sx={{ marginTop: "1rem" }}
-        >
-          {id
-            ? "Editer"
-            : responseAddHoliday?.isLoading
-            ? "Loading ..."
-            : "Enregistrer"}
-        </Button>
+      <Box sx={{ display: "flex", justifyContent: "end", marginTop: "1rem" }}>
+        <SubmitButton response={responseAddHoliday} />
       </Box>
     </form>
   );

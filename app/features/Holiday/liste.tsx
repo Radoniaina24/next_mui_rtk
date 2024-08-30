@@ -7,16 +7,23 @@ import {
   GridActionsCellItem,
   GridToolbar,
 } from "@mui/x-data-grid";
-import { Box, Button, CircularProgress, Container } from "@mui/material";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Container,
+  Typography,
+} from "@mui/material";
 import React, { useState } from "react";
 import { useHolidayContext } from "@/lib/context/HolidayContext";
 import { useGetHolidayQuery } from "@/lib/api/holidayApi";
 import ModalHoliday from "./modal";
 import AddFormHoliday from "./form";
 import AlertlDeleteHoliday from "./alertModalToDeleteHoliday";
+import Loading from "@/app/components/progress/loading";
 export default function HolidayList() {
   const { handleOpenModalHoliday } = useHolidayContext();
-  const { data, isLoading } = useGetHolidayQuery("");
+  const { data, isLoading, error } = useGetHolidayQuery("");
   const { setId, handleOpenAlertToDeleteHoliday } = useHolidayContext();
   const columns: GridColDef[] = [
     { field: "name", headerName: "Jour férié", width: 300 },
@@ -61,7 +68,37 @@ export default function HolidayList() {
         <CircularProgress color="inherit" />
       </Box>
     );
-
+  if (error?.data)
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "400px",
+        }}
+      >
+        <Typography color="error" variant="h5" component={"p"}>
+          Mauvaise requête
+        </Typography>
+      </Box>
+    );
+  if (error) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "400px",
+        }}
+      >
+        <Typography color="error" variant="h5" component={"p"}>
+          Network Error
+        </Typography>
+      </Box>
+    );
+  }
   return (
     <Box sx={{ marginTop: "45px" }}>
       <Container maxWidth="lg">

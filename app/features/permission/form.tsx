@@ -1,6 +1,14 @@
+import SubmitButton from "@/app/components/button/submitBtn";
+import Loading from "@/app/components/progress/loading";
 import { useGetPermissionByIdQuery } from "@/lib/api/permissionApi";
 import { usePermissionContext } from "@/lib/context/PermissionContext";
-import { Box, Button, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  TextField,
+  Typography,
+} from "@mui/material";
 import React, { useEffect } from "react";
 
 export default function AddFormPermission() {
@@ -17,7 +25,7 @@ export default function AddFormPermission() {
     }
   }, [permission, id]);
 
-  if (isLoading) return <p>Loading ...</p>;
+  if (id && isLoading) return <Loading />;
   return (
     <form
       onSubmit={handleSubmit}
@@ -63,20 +71,8 @@ export default function AddFormPermission() {
           min: 1,
         }}
       />
-      <Box sx={{ display: "flex", justifyContent: "end" }}>
-        <Button
-          size="small"
-          type="submit"
-          variant="contained"
-          color="success"
-          sx={{ marginTop: "1rem" }}
-        >
-          {id
-            ? "Editer"
-            : responseAddPermission?.isLoading
-            ? "Loading ..."
-            : "Enregistrer"}
-        </Button>
+      <Box sx={{ display: "flex", justifyContent: "end", marginTop: "1rem" }}>
+        <SubmitButton response={responseAddPermission} />
       </Box>
     </form>
   );
