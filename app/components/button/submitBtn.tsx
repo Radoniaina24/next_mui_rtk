@@ -11,7 +11,6 @@ export default function SubmitButton({ response }: any) {
     >
       {response?.isLoading ? (
         <Typography sx={{ display: "flex", gap: 2 }}>
-          {" "}
           Enregistrer
           <CircularProgress size={"1.5rem"} color="inherit" />
         </Typography>

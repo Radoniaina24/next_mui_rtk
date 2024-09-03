@@ -4,7 +4,7 @@ export const permissionAPI = createApi({
   reducerPath: "permissionAPI",
   tagTypes: ["parametre"],
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5000/api/",
+    baseUrl: "https://0kcclc3h-7223.inc1.devtunnels.ms/api/",
   }),
   endpoints: (builder) => ({
     getPermission: builder.query({

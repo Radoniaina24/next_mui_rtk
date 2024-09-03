@@ -10,7 +10,7 @@ export const otherAPI = createApi({
     getOther: builder.query({
       query: () => {
         return {
-          url: `other`,
+          url: `other/one`,
           method: "GET",
         };
       },

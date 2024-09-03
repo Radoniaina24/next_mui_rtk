@@ -10,6 +10,7 @@ import {
   ListItemIcon,
   ListItemText,
   Skeleton,
+  Typography,
 } from "@mui/material";
 import React from "react";
 import { useOtherContext } from "@/lib/context/OtherContext";
@@ -40,51 +41,72 @@ export default function OtherList() {
     "Samedi",
   ];
   const week = other?.data[0]?.dayOff.map((item: any) => weeks[item]);
-  // if (isLoading)
-  //   return (
-  //     <Box
-  //       sx={{
-  //         display: "flex",
-  //         justifyContent: "center",
-  //         alignItems: "center",
-  //         width: "100%",
-  //         height: "500px",
-  //       }}
-  //     >
-  //       <CircularProgress color="inherit" />
-  //     </Box>
-  //   );
-  // if (error?.data)
-  //   return (
-  //     <Box
-  //       sx={{
-  //         display: "flex",
-  //         justifyContent: "center",
-  //         alignItems: "center",
-  //         height: "400px",
-  //       }}
-  //     >
-  //       <Typography color="error" variant="h5" component={"p"}>
-  //         Mauvaise requête
-  //       </Typography>
-  //     </Box>
-  //   );
-  // if (error) {
-  //   return (
-  //     <Box
-  //       sx={{
-  //         display: "flex",
-  //         justifyContent: "center",
-  //         alignItems: "center",
-  //         height: "400px",
-  //       }}
-  //     >
-  //       <Typography color="error" variant="h5" component={"p"}>
-  //         Network Error
-  //       </Typography>
-  //     </Box>
-  //   );
-  // }
+  const table = [0, 1, 2, 3, 4, 5];
+  if (isLoading)
+    return (
+      <Box sx={{ marginTop: "45px" }}>
+        <List>
+          {table.map((index) => (
+            <ListItem key={index}>
+              <ListItemIcon>
+                <Skeleton variant="rounded" width={25} height={25} />
+              </ListItemIcon>
+              <ListItemText>
+                <Skeleton
+                  variant="text"
+                  sx={{ fontSize: "1rem" }}
+                  width={250}
+                />
+              </ListItemText>
+              <ListItemText
+                sx={{
+                  display: "flex",
+                  justifyContent: "end",
+                }}
+              >
+                <Skeleton variant="text" sx={{ fontSize: "1rem" }} width={60} />
+              </ListItemText>
+            </ListItem>
+          ))}
+        </List>
+        <Box
+          sx={{ display: "flex", justifyContent: "end", marginTop: "1.5rem" }}
+        >
+          <Skeleton variant="rounded" width={85} height={30} />
+        </Box>
+      </Box>
+    );
+  if (error?.data)
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "400px",
+        }}
+      >
+        <Typography color="error" variant="h5" component={"p"}>
+          Mauvaise requête
+        </Typography>
+      </Box>
+    );
+  if (error) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "400px",
+        }}
+      >
+        <Typography color="error" variant="h5" component={"p"}>
+          Network Error
+        </Typography>
+      </Box>
+    );
+  }
   return (
     <Box sx={{ marginTop: "45px" }}>
       <Container maxWidth="lg">
@@ -221,12 +243,6 @@ export default function OtherList() {
                       }
                     />
                   )}
-                  <ListItemText
-                    sx={{ textAlign: "end" }}
-                    primary={
-                      otherParameter ? otherParameter?.coefficient : " - "
-                    }
-                  />
                 </ListItemButton>
               </ListItem>
             </List>
@@ -260,7 +276,6 @@ export default function OtherList() {
                 {other?.data.length > 0 ? "Modifier" : "Ajouter"}
               </Button>
             </Box>
-            ;
           </Box>
         </Box>
         <ModalOther>

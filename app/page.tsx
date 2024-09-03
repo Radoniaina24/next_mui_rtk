@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function IndexPage() {
   return (
     <Container maxWidth="lg" sx={{ marginTop: "50px" }}>
-      {/* <PermissionProvider>
+      <PermissionProvider>
         <Box>
           <Typography
             variant="h5"
@@ -25,7 +25,7 @@ export default function IndexPage() {
           <PermissionList />
         </Box>
       </PermissionProvider>
-      <HolidayProvider>
+      {/* <HolidayProvider>
         <Box sx={{ marginY: "60px" }}>
           <Typography
             variant="h5"
@@ -37,7 +37,7 @@ export default function IndexPage() {
           <HolidayList />
         </Box>
       </HolidayProvider> */}
-      <OtherProvider>
+      {/* <OtherProvider>
         <Typography
           variant="h5"
           component={"h3"}
@@ -46,7 +46,7 @@ export default function IndexPage() {
           Autre Paramètre
         </Typography>
         <OtherList />
-      </OtherProvider>
+      </OtherProvider> */}
     </Container>
   );
 }

@@ -3,7 +3,11 @@ import Other from "@/app/interface/other";
 import { otherSchema } from "@/utils/yup/shema";
 import { useFormik } from "formik";
 import React, { createContext, useContext, useState } from "react";
-import { useAddOtherMutation, useUpdateOtherMutation } from "../api/otherApi";
+import {
+  useAddOtherMutation,
+  useGetOtherQuery,
+  useUpdateOtherMutation,
+} from "../api/otherApi";
 const initialValues: Omit<Other, "id"> = {
   workDay: "0",
   workHour: "0",
@@ -16,6 +20,7 @@ const initialValues: Omit<Other, "id"> = {
 const OtherContext = createContext<any | null>(null);
 function OtherProvider({ children }: { children: React.ReactNode }) {
   const [updateOther, responseUpdateOther] = useUpdateOtherMutation();
+  const { data, refetch } = useGetOtherQuery("");
   const [showAlert, setShowAlert] = useState(false);
   function handleOpenAlertToDeleteOther() {
     setShowAlert(true);
@@ -37,6 +42,7 @@ function OtherProvider({ children }: { children: React.ReactNode }) {
   }
   async function onSubmit(values: any) {
     await updateOther(values);
+    refetch();
     formik.resetForm();
     handleCloseModalOther();
   }

@@ -16,12 +16,15 @@ const style = {
   p: 4,
 };
 export default function AlertlDelete(): any {
-  const { showAlert, handleCloseAlertToDeletePermission, id, setId } =
-    usePermissionContext();
-  const [deletePermission, responseDeletePermission] =
-    useDeletePermissionMutation();
+  const {
+    showAlert,
+    handleCloseAlertToDeletePermission,
+    id,
+    setId,
+    handleDeletePermission,
+  } = usePermissionContext();
   async function delPermission() {
-    await deletePermission(id);
+    await handleDeletePermission(id);
     handleCloseAlertToDeletePermission();
     setId("");
   }

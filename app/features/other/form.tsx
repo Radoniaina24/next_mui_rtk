@@ -1,8 +1,6 @@
 "use client";
 import {
   Box,
-  Button,
-  CircularProgress,
   FormControl,
   FormControlLabel,
   FormHelperText,
@@ -15,6 +13,8 @@ import makeAnimated from "react-select/animated";
 
 import { useOtherContext } from "@/lib/context/OtherContext";
 import SubmitButton from "@/app/components/button/submitBtn";
+import { useGetOtherByIdQuery, useGetOtherQuery } from "@/lib/api/otherApi";
+import { useEffect } from "react";
 
 function AddFormOther() {
   const animatedComponents = makeAnimated();
@@ -34,13 +34,21 @@ function AddFormOther() {
     const weeksValue = e.map((week: any) => week.value);
     setFieldValue("dayOff", weeksValue);
   };
+  const { data: other, isLoading, error } = useGetOtherQuery("");
+  useEffect(() => {
+    if (other?.data[0]) {
+      const values = other?.data[0];
+      setFieldValue("accruate", values?.accruate);
+      setFieldValue("coefficient", values?.coefficient);
+      setFieldValue("isFormule", values?.isFormule);
+      setFieldValue("monthlyLeave", values?.monthlyLeave);
+      setFieldValue("workDay", values?.workDay);
+      setFieldValue("workHour", values?.workHour);
+    }
+  }, [other?.data[0]]);
   return (
     <form onSubmit={handleSubmit} autoComplete="off">
-      <Box>
-        <Typography textAlign={"center"} marginY={"1rem"}>
-          Ajouter une autre paramètre:
-        </Typography>
-
+      <Box sx={{ marginTop: "1.5rem" }}>
         <TextField
           fullWidth
           margin="dense"
