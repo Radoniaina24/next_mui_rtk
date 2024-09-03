@@ -6,10 +6,8 @@ import React, { createContext, useContext, useState } from "react";
 import {
   useAddPermissionMutation,
   useDeletePermissionMutation,
-  useGetPermissionQuery,
   useUpdatePermissionMutation,
 } from "../api/permissionApi";
-import { AlertProps } from "@mui/material";
 import { useSnackbar } from "./SnackbarContext";
 const initialValues: Omit<Permission, "id"> = {
   event: "",
@@ -34,9 +32,9 @@ function PermissionProvider({ children }: { children: React.ReactNode }) {
       showSnackbar("Erreur lors de la creation du permission", "error");
     }
   }
-  async function handleUpdatePermission(id: any, updatePerm: any) {
+  async function handleUpdatePermission(updatePermi: any, id: any) {
     try {
-      await updatePermission({ updatePerm, id }).unwrap();
+      await updatePermission({ updatePermission: updatePermi, id }).unwrap();
       showSnackbar("Permission mis à jour avec succès", "success");
     } catch (err) {
       showSnackbar("Erreur lors de la mise à jour du permission", "error");
@@ -103,6 +101,7 @@ function PermissionProvider({ children }: { children: React.ReactNode }) {
         handleOpenAlertToDeletePermission,
         handleCloseAlertToDeletePermission,
         handleDeletePermission,
+        responseUpdatePermission,
       }}
     >
       {children}

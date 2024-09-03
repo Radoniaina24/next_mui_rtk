@@ -1,21 +1,26 @@
+import { usePermissionContext } from "@/lib/context/PermissionContext";
 import { Button, CircularProgress, Typography } from "@mui/material";
 import React from "react";
 
-export default function SubmitButton({ response }: any) {
+export default function SubmitButton() {
+  const { id, responseAddPermission, responseUpdatePermission } =
+    usePermissionContext();
+  const loading =
+    responseAddPermission?.isLoading || responseUpdatePermission?.isLoading;
   return (
     <Button
       type="submit"
       variant="contained"
-      color="success"
-      disabled={response?.isLoading ? true : false}
+      color={id ? "primary" : "success"}
+      disabled={loading ? true : false}
     >
-      {response?.isLoading ? (
+      {loading ? (
         <Typography sx={{ display: "flex", gap: 2 }}>
           Enregistrer
           <CircularProgress size={"1.5rem"} color="inherit" />
         </Typography>
       ) : (
-        "Enregistrer"
+        <Typography> {id ? "Modifier" : "Enregistrer"}</Typography>
       )}
     </Button>
   );

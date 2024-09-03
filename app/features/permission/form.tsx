@@ -12,7 +12,7 @@ import {
 import React, { useEffect } from "react";
 
 export default function AddFormPermission() {
-  const { formik, responseAddPermission, id } = usePermissionContext();
+  const { formik, id } = usePermissionContext();
   const { values, handleChange, touched, errors, handleSubmit, setFieldValue } =
     formik;
   const { data: permission, isLoading } = useGetPermissionByIdQuery(id);
@@ -72,7 +72,7 @@ export default function AddFormPermission() {
         }}
       />
       <Box sx={{ display: "flex", justifyContent: "end", marginTop: "1rem" }}>
-        <SubmitButton response={responseAddPermission} />
+        <SubmitButton />
       </Box>
     </form>
   );

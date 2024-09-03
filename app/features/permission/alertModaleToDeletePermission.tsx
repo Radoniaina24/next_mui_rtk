@@ -1,4 +1,3 @@
-import { useDeletePermissionMutation } from "@/lib/api/permissionApi";
 import { usePermissionContext } from "@/lib/context/PermissionContext";
 import { Modal, Box, Typography, Button } from "@mui/material";
 import React from "react";
