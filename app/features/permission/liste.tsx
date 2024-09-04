@@ -2,7 +2,14 @@
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { GridColDef, GridActionsCellItem } from "@mui/x-data-grid";
-import { Box, Button, CircularProgress, Container } from "@mui/material";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Container,
+  Typography,
+} from "@mui/material";
 import React from "react";
 import { usePermissionContext } from "@/lib/context/PermissionContext";
 import { useGetPermissionQuery } from "@/lib/api/permissionApi";
@@ -58,20 +65,24 @@ export default function PermissionList() {
       </Box>
     );
   return (
-    <Box sx={{ marginTop: "45px" }}>
+    <Box sx={{ marginTop: "30px" }}>
       <Container maxWidth="lg">
+        <Typography variant="h5" component={"h4"}>
+          Liste des permissions
+        </Typography>
+        <Button
+          color="primary"
+          variant="contained"
+          size="small"
+          sx={{ marginRight: "5px", paddingX: "15px" }}
+          startIcon={<AddCircleOutlineIcon />}
+          onClick={() => handleOpenModalPermission()}
+          sx={{ marginY: "20px" }}
+        >
+          Ajouter
+        </Button>
         <Box>
-          <Button
-            size="small"
-            variant="contained"
-            color="primary"
-            onClick={handleOpenModalPermission}
-          >
-            Ajouter
-          </Button>
-        </Box>
-        <Box sx={{ marginTop: "25px" }}>
-          <div style={{ height: 500, width: "100%" }}>
+          <div style={{ height: 650, width: "100%" }}>
             <GridData data={data} columns={columns} />
           </div>
         </Box>

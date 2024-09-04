@@ -1,4 +1,3 @@
-import SubmitButton from "@/app/components/button/submitBtn";
 import Loading from "@/app/components/progress/loading";
 import { useGetPermissionByIdQuery } from "@/lib/api/permissionApi";
 import { usePermissionContext } from "@/lib/context/PermissionContext";
@@ -10,6 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useEffect } from "react";
+import SubmitButtonPermission from "./submitBtn";
 
 export default function AddFormPermission() {
   const { formik, id } = usePermissionContext();
@@ -72,7 +72,7 @@ export default function AddFormPermission() {
         }}
       />
       <Box sx={{ display: "flex", justifyContent: "end", marginTop: "1rem" }}>
-        <SubmitButton />
+        <SubmitButtonPermission />
       </Box>
     </form>
   );

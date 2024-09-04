@@ -15,13 +15,6 @@ export default function IndexPage() {
     <Container maxWidth="lg" sx={{ marginTop: "50px" }}>
       <PermissionProvider>
         <Box>
-          <Typography
-            variant="h5"
-            component={"h3"}
-            sx={{ textAlign: "center", fontWeight: "bold" }}
-          >
-            Permission
-          </Typography>
           <PermissionList />
         </Box>
       </PermissionProvider>

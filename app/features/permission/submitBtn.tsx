@@ -2,7 +2,7 @@ import { usePermissionContext } from "@/lib/context/PermissionContext";
 import { Button, CircularProgress, Typography } from "@mui/material";
 import React from "react";
 
-export default function SubmitButton() {
+export default function SubmitButtonPermission() {
   const { id, responseAddPermission, responseUpdatePermission } =
     usePermissionContext();
   const loading =

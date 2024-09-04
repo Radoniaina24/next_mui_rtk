@@ -1,6 +1,16 @@
-import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
+import { Box, Button } from "@mui/material";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import {
+  DataGrid,
+  GridColDef,
+  GridToolbarColumnsButton,
+  GridToolbarContainer,
+  GridToolbarExport,
+  GridToolbarFilterButton,
+  GridToolbarQuickFilter,
+} from "@mui/x-data-grid";
 import React from "react";
-
+import CustomToolbar from "./CustomToolbar";
 export default function GridData({
   data,
   columns,
@@ -11,17 +21,40 @@ export default function GridData({
 }) {
   return (
     <DataGrid
+      sx={{
+        ".MuiDataGrid-columnSeparator": {
+          display: "none",
+        },
+        // "&.MuiDataGrid-root": { border },
+        "& .MuiDataGrid-columnHeaders": {
+          fontWeight: "bold",
+          fontSize: "15px",
+        },
+        " & .MuiDataGrid-row--borderBottom": {
+          backgroundColor: "#f5f5f5 !important",
+          //color: "white",
+        },
+        "& .MuiDataGrid-sortIcon": {
+          opacity: "inherit !important",
+        },
+        "& .MuiDataGrid-cell:focus-within": {
+          outline: "none !important",
+        },
+        "& .MuiDataGrid-cell:hover": {
+          cursor: "pointer",
+        },
+      }}
       rows={data?.data}
       columns={columns}
-      slots={{ toolbar: GridToolbar }}
+      slots={{ toolbar: CustomToolbar }}
       disableDensitySelector
       slotProps={{
         pagination: {
           labelRowsPerPage: "Ligne par page",
         },
-        toolbar: {
-          showQuickFilter: true,
-        },
+        // toolbar: {
+        //   showQuickFilter: true,
+        // },
       }}
       localeText={{
         noRowsLabel: "Aucun résultat trouvé.",
