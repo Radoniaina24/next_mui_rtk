@@ -1,9 +1,9 @@
 import type { ReactNode } from "react";
 import { StoreProvider } from "./StoreProvider";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
-import "./styles/globals.css";
 import SnackbarProvider from "@/lib/context/SnackbarContext";
-
+import { ThemeProvider } from "@mui/material/styles";
+import { baselightTheme } from "./theme/DefaultColors";
 interface Props {
   readonly children: ReactNode;
 }
@@ -13,9 +13,11 @@ export default function RootLayout({ children }: Props) {
     <StoreProvider>
       <html lang="en">
         <body>
-          <AppRouterCacheProvider>
-            <SnackbarProvider>{children}</SnackbarProvider>
-          </AppRouterCacheProvider>
+          <ThemeProvider theme={baselightTheme}>
+            <AppRouterCacheProvider>
+              <SnackbarProvider>{children}</SnackbarProvider>
+            </AppRouterCacheProvider>
+          </ThemeProvider>
         </body>
       </html>
     </StoreProvider>
