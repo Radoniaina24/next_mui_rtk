@@ -1,7 +1,7 @@
 export default interface Mail {
   id: string;
   name: string;
-  cc: string;
+  cc: Array<String>;
   subject: string;
   body: string;
 }

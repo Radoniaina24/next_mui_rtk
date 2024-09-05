@@ -14,3 +14,11 @@ a {
 * {
   box-sizing: border-box;
 }
+/*Personnalisation de choices*/
+.choices {
+  background-color: red;
+}
+.rti--container {
+  /* border-color: #2196f3 !important; */
+  --rti-main: #2196f3 !important;
+}

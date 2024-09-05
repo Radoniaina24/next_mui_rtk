@@ -7,17 +7,24 @@ import HolidayList from "./features/Holiday/liste";
 import AddFormOther from "./features/other/form";
 import { OtherProvider } from "@/lib/context/OtherContext";
 import OtherList from "./features/other/liste";
+import { MailProvider } from "@/lib/context/MailContext";
+import MailList from "./features/Mail/list";
 export const metadata: Metadata = {
   title: "Redux Toolkit",
 };
 export default function IndexPage() {
   return (
-    <Container maxWidth="lg" sx={{ marginTop: "50px" }}>
-      <PermissionProvider>
+    <Container maxWidth="xl" sx={{ marginTop: "50px" }}>
+      {/* <PermissionProvider>
         <Box>
           <PermissionList />
         </Box>
-      </PermissionProvider>
+      </PermissionProvider> */}
+      <MailProvider>
+        <Box>
+          <MailList />
+        </Box>
+      </MailProvider>
       {/* <HolidayProvider>
         <Box sx={{ marginY: "60px" }}>
           <Typography

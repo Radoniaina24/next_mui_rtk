@@ -1,5 +1,6 @@
 import { Box, Button } from "@mui/material";
 import {
+  GridToolbarColumnsButton,
   GridToolbarContainer,
   GridToolbarFilterButton,
   GridToolbarQuickFilter,
@@ -17,7 +18,10 @@ export default function CustomToolbar() {
       {/* <GridToolbarColumnsButton /> */}
       {/* <GridToolbarExport /> */}
 
-      <GridToolbarFilterButton />
+      <Box>
+        <GridToolbarColumnsButton />
+        <GridToolbarFilterButton />
+      </Box>
 
       <GridToolbarQuickFilter
         placeholder="recherche ..."

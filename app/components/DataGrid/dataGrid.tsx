@@ -87,6 +87,7 @@ export default function GridData({
       //     console.log(params.pageSize);
       //   }}
       //   pagination={true}
+      // onRowClick={handleClick}
     />
   );
 }

@@ -1,5 +1,6 @@
 import * as yup from "yup";
 import { string, number, array } from "yup";
+// yup Holiday
 export const holidaySchema = yup.object({
   name: string()
     .min(3, "La valeur doit être superieur de 3 caractères")
@@ -7,6 +8,7 @@ export const holidaySchema = yup.object({
   startDate: string().required("Ce champ est requis"),
   endDate: string().required("Ce champ est requis"),
 });
+// yup Permission
 export const permissionSchema = yup.object({
   event: string().required("Ce champ est requis"),
   dayCount: number("La valeur doit être un nombre superieur de 0")
@@ -15,11 +17,27 @@ export const permissionSchema = yup.object({
   voucher: string().required("Ce champ est requis"),
 });
 
+// yup mail
+
+export const mailSchema = yup.object({
+  name: string().required("Ce champ est requis"),
+  cc: array()
+    .of(
+      string()
+        .email("Veuillez entrer une adresse e-mail valide")
+        .required("L'adresse e-mail est obligatoire")
+    )
+    .min(1, "Veuillez entrer au moins une adresse e-mail"),
+  subject: string().required("Ce champ est requis"),
+  body: string().required("Ce champ est requis"),
+});
+
 const parseStringToNumber = (value) => {
   if (typeof value !== "string") return value;
   return parseFloat(value.replace(",", "."));
 };
 
+// yup Other
 export const otherSchema = yup.object({
   workDay: string()
     .matches(
