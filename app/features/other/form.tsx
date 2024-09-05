@@ -15,6 +15,7 @@ import { useOtherContext } from "@/lib/context/OtherContext";
 import SubmitButton from "@/app/components/button/submitBtn";
 import { useGetOtherByIdQuery, useGetOtherQuery } from "@/lib/api/otherApi";
 import { useEffect } from "react";
+import SubmitButtonOther from "./submitBtn";
 
 function AddFormOther() {
   const animatedComponents = makeAnimated();
@@ -146,7 +147,7 @@ function AddFormOther() {
         )}
 
         <Box sx={{ width: "100%", textAlign: "right", marginTop: "1.5rem" }}>
-          <SubmitButton response={responseUpdateOther} />
+          <SubmitButtonOther />
         </Box>
       </Box>
     </form>

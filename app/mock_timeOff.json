@@ -1,0 +1,85 @@
+{
+  "mail": [
+    {
+      "id": "cdf16492-eeee-423d-98ab-3e339505b817",
+      "name": "conge",
+      "cc": "example1@gmail.com, example2@gmail.com, example3@gmail.com",
+      "subject": "objet",
+      "body": "<html></html>"
+    },
+    {
+      "id": "cdf16492-eeee-423d-98ab-3e339505b817",
+      "name": "permission",
+      "cc": "example1@gmail.com, example2@gmail.com",
+      "subject": "objet",
+      "body": "<html></html>"
+    }
+  ],
+
+  "permission": [
+    {
+      "id": "cdf16492-eeee-423d-98ab-3e339505b817",
+      "event": "mariage",
+      "dayCount": 3,
+      "voucher": "Acte de mariage"
+    },
+    {
+      "id": "cdf16492-eeee-423d-98ab-3e339505b817",
+      "event": "décés",
+      "dayCount": 3,
+      "voucher": "Acte de décés"
+    }
+  ],
+
+  "holidays": [
+    {
+      "id": "cdf16492-eeee-423d-98ab-3e339505b817",
+      "date": "2024-06-26",
+      "dayPart": 0, // Enum 0 = HalfDay, 1 = FullDay
+      "name": "Independance Madagascar"
+    },
+    {
+      "id": "cdf16492-eeee-423d-98ab-3e339505b817",
+      "date": "2024-06-26",
+      "dayDuration": 0, // Enum 0 = HalfDay, 1 = FullDay
+      "name": "Independance Madagascar"
+    }
+  ],
+
+  "other": {
+    "Id": "64fa1e4bb5f3c89f6a3eaf91",
+    "WorkDay": 5,
+    "WorkHour": 8,
+    "MonthlyLeave": 2.5,
+    "Accruate": 90,
+    "DayOff": [
+      {
+        "Day": 1,
+        "DayType": 1 // Lundi, FullDay
+      },
+      {
+        "Day": 6,
+        "DayType": 0 // Samedi, HalfDay
+      }
+    ],
+    "Coefficient": 3,
+    "IsFormule": true
+  },
+
+  "request_rules": {
+    "formule": [
+      {
+        "min": 0,
+        "max": 1,
+        "value": 3
+      },
+      {
+        "min": 1,
+        "max": 3,
+        "value": 5
+      }
+    ],
+    "coefficient": null,
+    "isFormule": 1 // True = Formule, False = Coefficient
+  }
+}

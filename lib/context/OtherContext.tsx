@@ -5,9 +5,10 @@ import { useFormik } from "formik";
 import React, { createContext, useContext, useState } from "react";
 import {
   useAddOtherMutation,
-  useGetOtherQuery,
+  useDeleteOtherMutation,
   useUpdateOtherMutation,
 } from "../api/otherApi";
+import { useSnackbar } from "./SnackbarContext";
 const initialValues: Omit<Other, "id"> = {
   workDay: "0",
   workHour: "0",
@@ -19,8 +20,37 @@ const initialValues: Omit<Other, "id"> = {
 };
 const OtherContext = createContext<any | null>(null);
 function OtherProvider({ children }: { children: React.ReactNode }) {
+  // utilisation du context snackbar
+  const { showSnackbar } = useSnackbar();
+  // CRUD RTK Query
+  const [addOther, responseAddOther] = useAddOtherMutation();
   const [updateOther, responseUpdateOther] = useUpdateOtherMutation();
-  const { data, refetch } = useGetOtherQuery("");
+  const [deleteOther, responseDeleteOther] = useDeleteOtherMutation();
+  async function handleCreateOther(newOther: any) {
+    try {
+      await addOther(newOther).unwrap();
+      showSnackbar("Other créé avec succès", "success");
+    } catch (err) {
+      showSnackbar("Erreur lors de la creation du other", "error");
+    }
+  }
+  async function handleUpdateOther(updatePermi: any) {
+    try {
+      await updateOther(updatePermi).unwrap();
+      showSnackbar("Other mis à jour avec succès", "success");
+    } catch (err) {
+      showSnackbar("Erreur lors de la mise à jour du other", "error");
+    }
+  }
+  async function handleDeleteOther(id: any) {
+    try {
+      await deleteOther(id).unwrap();
+      showSnackbar("Other supprimé avec succès", "success");
+    } catch (err) {
+      showSnackbar("Erreur lors de la suppression du other", "error");
+    }
+  }
+  // Alert Other on delete other
   const [showAlert, setShowAlert] = useState(false);
   function handleOpenAlertToDeleteOther() {
     setShowAlert(true);
@@ -31,6 +61,8 @@ function OtherProvider({ children }: { children: React.ReactNode }) {
   }
   // recupération de l'id du other a editer ou a supprimmer
   const [id, setId] = useState("");
+
+  //Modale other
   const [showModal, setShowModal] = useState(false);
   function handleCloseModalOther() {
     setShowModal(false);
@@ -41,18 +73,15 @@ function OtherProvider({ children }: { children: React.ReactNode }) {
     setShowModal(true);
   }
   async function onSubmit(values: any) {
-    await updateOther(values);
-    refetch();
+    await handleUpdateOther(values);
     formik.resetForm();
     handleCloseModalOther();
   }
-  updateOther;
   const formik = useFormik({
     initialValues,
     validationSchema: otherSchema,
     onSubmit,
   });
-  const [addOther, responseAddOther] = useAddOtherMutation();
   return (
     <OtherContext.Provider
       value={{
@@ -67,6 +96,8 @@ function OtherProvider({ children }: { children: React.ReactNode }) {
         handleCloseAlertToDeleteOther,
         showAlert,
         responseUpdateOther,
+        handleDeleteOther,
+        responseDeleteOther,
       }}
     >
       {children}

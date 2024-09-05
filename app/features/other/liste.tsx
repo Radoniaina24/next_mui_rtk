@@ -1,4 +1,5 @@
 "use client";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import {
   Box,
   Button,
@@ -24,12 +25,11 @@ import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import VerticalAlignTopIcon from "@mui/icons-material/VerticalAlignTop";
 import FamilyRestroomIcon from "@mui/icons-material/FamilyRestroom";
 import NumbersIcon from "@mui/icons-material/Numbers";
-import DesignServicesIcon from "@mui/icons-material/DesignServices";
 export default function OtherList() {
   const { handleOpenModalOther } = useOtherContext();
   const { data: other, isLoading, error } = useGetOtherQuery("");
-  const { handleOpenAlertToDeleteOther } = useOtherContext();
-  const [deleteOther, responseDelete] = useDeleteOtherMutation("");
+  const { handleDeleteOther, responseDeleteOther } = useOtherContext();
+
   const otherParameter = other?.data[0];
   const weeks = [
     "Dimanche",
@@ -76,37 +76,6 @@ export default function OtherList() {
         </Box>
       </Box>
     );
-  if (error?.data)
-    return (
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "400px",
-        }}
-      >
-        <Typography color="error" variant="h5" component={"p"}>
-          Mauvaise requête
-        </Typography>
-      </Box>
-    );
-  if (error) {
-    return (
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "400px",
-        }}
-      >
-        <Typography color="error" variant="h5" component={"p"}>
-          Network Error
-        </Typography>
-      </Box>
-    );
-  }
   return (
     <Box sx={{ marginTop: "45px" }}>
       <Container maxWidth="lg">
@@ -258,10 +227,10 @@ export default function OtherList() {
                   size="small"
                   color="error"
                   variant="contained"
-                  onClick={() => deleteOther(otherParameter?.id)}
-                  disabled={responseDelete?.isLoading}
+                  onClick={() => handleDeleteOther(otherParameter?.id)}
+                  disabled={responseDeleteOther?.isLoading}
                 >
-                  {responseDelete?.isLoading ? "Loading..." : " Supprimer"}
+                  {responseDeleteOther?.isLoading ? "Loading..." : " Supprimer"}
                 </Button>
               ) : (
                 ""
@@ -271,7 +240,15 @@ export default function OtherList() {
                 variant="contained"
                 color={other?.data.length > 0 ? "warning" : "success"}
                 onClick={handleOpenModalOther}
-                sx={{ marginLeft: "0.5rem" }}
+                sx={{
+                  marginRight: "5px",
+                  paddingX: "15px",
+                  marginLeft: "0.5rem",
+                }}
+                startIcon={
+                  other?.data.length > 0 ? "" : <AddCircleOutlineIcon />
+                }
+                disabled={responseDeleteOther?.isLoading}
               >
                 {other?.data.length > 0 ? "Modifier" : "Ajouter"}
               </Button>

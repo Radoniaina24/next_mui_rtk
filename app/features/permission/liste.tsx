@@ -65,7 +65,7 @@ export default function PermissionList() {
       </Box>
     );
   return (
-    <Box sx={{ marginTop: "30px" }}>
+    <Box>
       <Container maxWidth="lg">
         <Typography variant="h5" component={"h4"}>
           Liste des permissions
@@ -77,7 +77,7 @@ export default function PermissionList() {
           sx={{ marginRight: "5px", paddingX: "15px" }}
           startIcon={<AddCircleOutlineIcon />}
           onClick={() => handleOpenModalPermission()}
-          sx={{ marginY: "20px" }}
+          sx={{ marginTop: "20px" }}
         >
           Ajouter
         </Button>
