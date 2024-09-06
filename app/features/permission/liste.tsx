@@ -66,31 +66,29 @@ export default function PermissionList() {
     );
   return (
     <Box>
-      <Container maxWidth="lg">
-        <Typography variant="h5" component={"h4"}>
-          Liste des permissions
-        </Typography>
-        <Button
-          color="primary"
-          variant="contained"
-          size="small"
-          sx={{ marginRight: "5px", paddingX: "15px" }}
-          startIcon={<AddCircleOutlineIcon />}
-          onClick={() => handleOpenModalPermission()}
-          sx={{ marginTop: "20px" }}
-        >
-          Ajouter
-        </Button>
-        <Box>
-          <div style={{ height: 650, width: "100%" }}>
-            <GridData data={data} columns={columns} />
-          </div>
-        </Box>
-        <ModalPermission>
-          <AddFormPermission />
-        </ModalPermission>
-        <AlertlDelete />
-      </Container>
+      <Typography variant="h5" component={"h4"}>
+        Liste des permissions
+      </Typography>
+      <Button
+        color="primary"
+        variant="contained"
+        size="small"
+        sx={{ marginRight: "5px", paddingX: "15px" }}
+        startIcon={<AddCircleOutlineIcon />}
+        onClick={() => handleOpenModalPermission()}
+        sx={{ marginTop: "20px" }}
+      >
+        Ajouter
+      </Button>
+      <Box>
+        <div style={{ height: 650, width: "100%" }}>
+          <GridData data={data} columns={columns} />
+        </div>
+      </Box>
+      <ModalPermission>
+        <AddFormPermission />
+      </ModalPermission>
+      <AlertlDelete />
     </Box>
   );
 }

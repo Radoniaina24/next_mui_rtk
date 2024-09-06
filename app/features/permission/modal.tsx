@@ -4,7 +4,7 @@ import React from "react";
 import { usePermissionContext } from "@/lib/context/PermissionContext";
 const style = {
   position: "absolute",
-  top: "30%",
+  top: "35%",
   left: "50%",
   width: 380,
   transform: "translate(-50%, -50%)",

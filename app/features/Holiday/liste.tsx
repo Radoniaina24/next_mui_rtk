@@ -66,31 +66,27 @@ export default function HolidayList() {
   //   );
   return (
     <Box>
-      <Container maxWidth="lg">
-        <Typography variant="h5" component={"h4"}>
-          Liste des jours fériés
-        </Typography>
-        <Button
-          color="primary"
-          variant="contained"
-          size="small"
-          sx={{ marginRight: "5px", paddingX: "15px" }}
-          startIcon={<AddCircleOutlineIcon />}
-          onClick={() => handleOpenModalHoliday()}
-          sx={{ marginTop: "20px" }}
-        >
-          Ajouter
-        </Button>
-        <Box>
-          <div style={{ height: 650, width: "100%" }}>
-            <GridData data={data} columns={columns} />
-          </div>
-        </Box>
-        <ModalHoliday>
-          <AddFormHoliday />
-        </ModalHoliday>
-        <AlertlDelete />
-      </Container>
+      <Typography variant="h5" component={"h4"}>
+        Liste des jours fériés
+      </Typography>
+      <Button
+        color="primary"
+        variant="contained"
+        size="small"
+        sx={{ marginRight: "5px", paddingX: "15px" }}
+        startIcon={<AddCircleOutlineIcon />}
+        onClick={() => handleOpenModalHoliday()}
+        sx={{ marginTop: "20px" }}
+      >
+        Ajouter
+      </Button>
+      <Box sx={{ height: 650, width: "100%" }}>
+        <GridData data={data} columns={columns} />
+      </Box>
+      <ModalHoliday>
+        <AddFormHoliday />
+      </ModalHoliday>
+      <AlertlDelete />
     </Box>
   );
 }

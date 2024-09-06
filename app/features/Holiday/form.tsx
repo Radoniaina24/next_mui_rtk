@@ -36,9 +36,14 @@ export default function AddFormHoliday() {
       style={{ marginTop: "25px" }}
     >
       <Typography
-        sx={{ textAlign: "center", fontSize: "20px", marginY: "0.2rem" }}
+        sx={{
+          textAlign: "center",
+          fontSize: "20px",
+          marginY: "0.2rem",
+          marginBottom: "1rem",
+        }}
       >
-        {id ? "Modification du jour férié" : "Nouveau jour férié"}
+        {id ? "Modification du jours férié" : "Nouveau jours férié"}
       </Typography>
       <TextField
         margin="dense"
@@ -91,7 +96,6 @@ export default function AddFormHoliday() {
             required
           />
         </RadioGroup>
-        <FormHelperText>Vous devez choisir une option.</FormHelperText>
       </FormControl>
 
       <Box sx={{ display: "flex", justifyContent: "end", marginTop: "1rem" }}>

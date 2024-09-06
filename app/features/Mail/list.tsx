@@ -22,9 +22,9 @@ export default function MailList() {
   const { data, isLoading, error } = useGetMailQuery("");
   const { setId, handleOpenAlertToDeleteMail } = useMailContext();
   const columns: GridColDef[] = [
-    { field: "name", headerName: "Nom", width: 300 },
+    { field: "name", headerName: "Nom", width: 200 },
     { field: "cc", headerName: "Destinataires", width: 300 },
-    { field: "subject", headerName: "Sujet", width: 250 },
+    { field: "subject", headerName: "Sujet", width: 200 },
     { field: "body", headerName: "Corps", width: 250 },
     {
       field: "actions",
@@ -51,47 +51,45 @@ export default function MailList() {
       ],
     },
   ];
-  //   if (isLoading)
-  //     return (
-  //       <Box
-  //         sx={{
-  //           display: "flex",
-  //           justifyContent: "center",
-  //           alignItems: "center",
-  //           width: "100%",
-  //           height: "500px",
-  //         }}
-  //       >
-  //         <CircularProgress color="inherit" />
-  //       </Box>
-  //     );
+  if (isLoading)
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "100%",
+          height: "500px",
+        }}
+      >
+        <CircularProgress color="inherit" />
+      </Box>
+    );
   return (
-    <Box sx={{ marginTop: "30px" }}>
-      <Container maxWidth="xl">
-        <Typography variant="h5" component={"h4"}>
-          Liste des mails
-        </Typography>
-        <Button
-          color="primary"
-          variant="contained"
-          size="small"
-          sx={{ marginRight: "5px", paddingX: "15px" }}
-          startIcon={<AddCircleOutlineIcon />}
-          onClick={() => handleOpenModalMail()}
-          sx={{ marginY: "20px" }}
-        >
-          Ajouter
-        </Button>
+    <Box>
+      <Typography variant="h5" component={"h4"}>
+        Liste des mails
+      </Typography>
+      <Button
+        color="primary"
+        variant="contained"
+        size="small"
+        sx={{ marginRight: "5px", paddingX: "15px" }}
+        startIcon={<AddCircleOutlineIcon />}
+        onClick={() => handleOpenModalMail()}
+        sx={{ marginY: "20px" }}
+      >
+        Ajouter
+      </Button>
 
-        <Box sx={{ height: 650, width: "100%" }}>
-          <GridData data={data} columns={columns} />
-        </Box>
+      <Box sx={{ height: 650 }}>
+        <GridData data={data} columns={columns} />
+      </Box>
 
-        <ModalMail>
-          <AddFormMail />
-        </ModalMail>
-        <AlertlDelete />
-      </Container>
+      <ModalMail>
+        <AddFormMail />
+      </ModalMail>
+      <AlertlDelete />
     </Box>
   );
 }

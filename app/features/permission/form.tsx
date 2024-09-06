@@ -33,7 +33,12 @@ export default function AddFormPermission() {
       style={{ marginTop: "25px" }}
     >
       <Typography
-        sx={{ textAlign: "center", fontSize: "20px", marginY: "0.2rem" }}
+        sx={{
+          textAlign: "center",
+          fontSize: "20px",
+          marginY: "0.2rem",
+          marginBottom: "1rem",
+        }}
       >
         {id ? "Modification du permission" : "Nouveau permission"}
       </Typography>

@@ -3,6 +3,7 @@ import {
   IconSettings,
   Icon24Hours,
   IconCalendarPause,
+  IconMail,
 } from "@tabler/icons-react";
 
 import { uniqueId } from "lodash";
@@ -34,6 +35,12 @@ const Menuitems = [
     title: "Permission",
     icon: Icon24Hours,
     href: "/parametre/permission",
+  },
+  {
+    id: uniqueId(),
+    title: "Mail",
+    icon: IconMail,
+    href: "/parametre/mail",
   },
   {
     id: uniqueId(),
