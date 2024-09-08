@@ -1,31 +1,45 @@
-import Loading from "@/app/components/progress/loading";
-import { useGetPermissionByIdQuery } from "@/lib/api/permissionApi";
 import { usePermissionContext } from "@/lib/context/PermissionContext";
-import {
-  Box,
-  Button,
-  CircularProgress,
-  TextField,
-  Typography,
-} from "@mui/material";
-import React, { useEffect } from "react";
+import { Box, TextField, Typography } from "@mui/material";
+import React from "react";
 import SubmitButtonPermission from "./submitBtn";
+import Permission from "@/app/interface/permission";
 
-export default function AddFormPermission() {
-  const { formik, id } = usePermissionContext();
+import { useFormik } from "formik";
+import { permissionSchema } from "@/utils/yup/shema";
+const initialValues: Omit<Permission, "id"> = {
+  event: "",
+  dayCount: 1,
+  voucher: "",
+};
+export default function AddFormPermission({
+  permission,
+  handleClose,
+}: {
+  permission?: Permission;
+  handleClose?: any;
+}) {
+  const { id, handleUpdatePermission, handleCreatePermission } =
+    usePermissionContext();
+  async function onSubmit(values: any) {
+    if (permission?.id) {
+      await handleUpdatePermission(values, permission?.id);
+      formik.resetForm();
+      handleClose();
+    } else {
+      await handleCreatePermission(values);
+      formik.resetForm();
+      handleClose();
+    }
+  }
+  const formik = useFormik({
+    initialValues: permission ? permission : initialValues,
+    validationSchema: permissionSchema,
+    onSubmit,
+  });
+
   const { values, handleChange, touched, errors, handleSubmit, setFieldValue } =
     formik;
-  const { data: permission, isLoading } = useGetPermissionByIdQuery(id);
-  const permissionEdit = permission?.data;
-  useEffect(() => {
-    if (id) {
-      setFieldValue("event", permissionEdit?.event);
-      setFieldValue("dayCount", permissionEdit?.dayCount);
-      setFieldValue("voucher", permissionEdit?.voucher);
-    }
-  }, [permission, id]);
 
-  if (id && isLoading) return <Loading />;
   return (
     <form
       onSubmit={handleSubmit}

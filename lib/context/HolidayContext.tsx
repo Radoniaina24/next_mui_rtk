@@ -1,15 +1,11 @@
 "use client";
-import Holiday from "@/app/interface/holiday";
-import { holidaySchema } from "@/utils/yup/shema";
-import { useFormik } from "formik";
-import React, { createContext, useContext, useMemo, useState } from "react";
+import React, { createContext, useContext } from "react";
 import {
   useAddHolidayMutation,
   useDeleteHolidayMutation,
   useUpdateHolidayMutation,
 } from "../api/holidayApi";
 import { useSnackbar } from "./SnackbarContext";
-import dayjs from "dayjs";
 const HolidayContext = createContext<any | null>(null);
 function HolidayProvider({ children }: { children: React.ReactNode }) {
   // utilisation du context snackbar
@@ -42,44 +38,13 @@ function HolidayProvider({ children }: { children: React.ReactNode }) {
       showSnackbar("Erreur lors de la suppression du holiday", "error");
     }
   }
-  // Alert Holiday on delete holiday
-  const [showAlert, setShowAlert] = useState(false);
-  function handleOpenAlertToDeleteHoliday() {
-    setShowAlert(true);
-  }
-  function handleCloseAlertToDeleteHoliday() {
-    setShowAlert(false);
-    setId("");
-  }
-  // recupération de l'id du holiday a editer ou a supprimmer
-  const [holidayEdit, setHolidayToEdit] = useState({});
-  const [id, setId] = useState();
-  //Modale holiday
-  const [showModal, setShowModal] = useState(false);
-  function handleCloseModalHoliday() {
-    setShowModal(false);
-    formik.resetForm();
-    setId("");
-  }
-  function handleOpenModalHoliday() {
-    setShowModal(true);
-  }
+
   return (
     <HolidayContext.Provider
       value={{
-        showModal,
-        handleCloseModalHoliday,
-        handleOpenModalHoliday,
         responseAddHoliday,
-        id,
-        setId,
-        showAlert,
-        handleOpenAlertToDeleteHoliday,
-        handleCloseAlertToDeleteHoliday,
         handleDeleteHoliday,
         responseUpdateHoliday,
-        holidayEdit,
-        setHolidayToEdit,
         handleCreateHoliday,
         handleUpdateHoliday,
       }}

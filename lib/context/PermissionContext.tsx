@@ -1,19 +1,11 @@
 "use client";
-import Permission from "@/app/interface/permission";
-import { permissionSchema } from "@/utils/yup/shema";
-import { useFormik } from "formik";
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext } from "react";
 import {
   useAddPermissionMutation,
   useDeletePermissionMutation,
   useUpdatePermissionMutation,
 } from "../api/permissionApi";
 import { useSnackbar } from "./SnackbarContext";
-const initialValues: Omit<Permission, "id"> = {
-  event: "",
-  dayCount: 1,
-  voucher: "",
-};
 const PermissionContext = createContext<any | null>(null);
 function PermissionProvider({ children }: { children: React.ReactNode }) {
   // utilisation du context snackbar
@@ -48,60 +40,15 @@ function PermissionProvider({ children }: { children: React.ReactNode }) {
       showSnackbar("Erreur lors de la suppression du permission", "error");
     }
   }
-  // Alert Permission on delete permission
-  const [showAlert, setShowAlert] = useState(false);
-  function handleOpenAlertToDeletePermission() {
-    setShowAlert(true);
-  }
-  function handleCloseAlertToDeletePermission() {
-    setShowAlert(false);
-    setId("");
-  }
-  // recupération de l'id du permission a editer ou a supprimmer
-  const [id, setId] = useState("");
 
-  //Modale permission
-  const [showModal, setShowModal] = useState(false);
-  function handleCloseModalPermission() {
-    setShowModal(false);
-    formik.resetForm();
-    setId("");
-  }
-  function handleOpenModalPermission() {
-    setShowModal(true);
-  }
-  // function pour la soumission du formulaire
-  async function onSubmit(values: any) {
-    if (id) {
-      await handleUpdatePermission(values, id);
-      formik.resetForm();
-      handleCloseModalPermission();
-    } else {
-      await handleCreatePermission(values);
-      formik.resetForm();
-      handleCloseModalPermission();
-    }
-  }
-  const formik = useFormik({
-    initialValues,
-    validationSchema: permissionSchema,
-    onSubmit,
-  });
   return (
     <PermissionContext.Provider
       value={{
-        showModal,
-        handleCloseModalPermission,
-        handleOpenModalPermission,
-        formik,
         responseAddPermission,
-        id,
-        setId,
-        showAlert,
-        handleOpenAlertToDeletePermission,
-        handleCloseAlertToDeletePermission,
         handleDeletePermission,
         responseUpdatePermission,
+        handleCreatePermission,
+        handleUpdatePermission,
       }}
     >
       {children}
