@@ -13,7 +13,7 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-export default function DialogHoliday({
+export default function DialogPermission({
   open,
   onClose,
   children,

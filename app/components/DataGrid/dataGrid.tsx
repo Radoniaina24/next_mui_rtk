@@ -20,8 +20,8 @@ export default function GridData({
 {
   data: any;
   columns: GridColDef[];
-  onPage: any;
-  onLimit: any;
+  onPage?: any;
+  onLimit?: any;
 }) {
   function handleChangeLimit(params: any) {
     onLimit(params);
