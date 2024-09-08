@@ -1,26 +1,20 @@
 "use client";
-import BorderColorIcon from "@mui/icons-material/BorderColor";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { GridColDef, GridActionsCellItem } from "@mui/x-data-grid";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import {
-  Box,
-  Button,
-  CircularProgress,
-  Container,
-  Typography,
-} from "@mui/material";
+
+import { Box, CircularProgress, Typography } from "@mui/material";
 import React from "react";
 import { useMailContext } from "@/lib/context/MailContext";
 import { useGetMailQuery } from "@/lib/api/mailApi";
-import ModalMail from "./modal";
+
 import AddFormMail from "./form";
-import AlertlDelete from "./alertModalToDeleteMail";
+
 import GridData from "@/app/components/DataGrid/dataGrid";
+import { EditButton } from "./EditButton";
+import { DeleteButton } from "./DeleteButton";
+import AddButton from "./AddButton";
 export default function MailList() {
-  const { handleOpenModalMail } = useMailContext();
+  const { handleDeleteMail } = useMailContext();
   const { data, isLoading, error } = useGetMailQuery("");
-  const { setId, handleOpenAlertToDeleteMail } = useMailContext();
   const columns: GridColDef[] = [
     { field: "name", headerName: "Nom", width: 200 },
     { field: "cc", headerName: "Destinataires", width: 300 },
@@ -32,22 +26,8 @@ export default function MailList() {
       headerName: "Actions",
       width: 100,
       getActions: (params) => [
-        <GridActionsCellItem
-          icon={<BorderColorIcon color="primary" />}
-          label="Edit"
-          onClick={() => {
-            setId(params.id);
-            handleOpenModalMail();
-          }}
-        />,
-        <GridActionsCellItem
-          icon={<DeleteForeverIcon color="error" />}
-          label="Delete"
-          onClick={() => {
-            setId(params.id);
-            handleOpenAlertToDeleteMail();
-          }}
-        />,
+        <EditButton row={params.row} />,
+        <DeleteButton row={params.row} handleDelete={handleDeleteMail} />,
       ],
     },
   ];
@@ -67,29 +47,22 @@ export default function MailList() {
     );
   return (
     <Box>
-      <Typography variant="h5" component={"h4"}>
-        Liste des mails
-      </Typography>
-      <Button
-        color="primary"
-        variant="contained"
-        size="small"
-        sx={{ marginRight: "5px", paddingX: "15px" }}
-        startIcon={<AddCircleOutlineIcon />}
-        onClick={() => handleOpenModalMail()}
-        sx={{ marginY: "20px" }}
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
       >
-        Ajouter
-      </Button>
+        <Typography variant="h5" component={"h4"}>
+          Liste des pérmission
+        </Typography>
+        <AddButton />
+      </Box>
 
       <Box sx={{ height: 650 }}>
         <GridData data={data} columns={columns} />
       </Box>
-
-      <ModalMail>
-        <AddFormMail />
-      </ModalMail>
-      <AlertlDelete />
     </Box>
   );
 }

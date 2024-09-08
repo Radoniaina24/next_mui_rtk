@@ -1,30 +1,56 @@
-import Loading from "@/app/components/progress/loading";
-import { useGetMailByIdQuery } from "@/lib/api/mailApi";
-import { useMailContext } from "@/lib/context/MailContext";
 import { Box, FormHelperText, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import SubmitButtonMail from "./submitBtn";
 import { TagsInput } from "react-tag-input-component";
-export default function AddFormMail() {
-  const { formik, id } = useMailContext();
-  const [selected, setSelected] = useState([]);
+import Mail from "@/app/interface/mail";
+import { useFormik } from "formik";
+import { mailSchema } from "@/utils/yup/shema";
+import { useMailContext } from "@/lib/context/MailContext";
+const initialValues: Omit<Mail, "id"> = {
+  name: "",
+  cc: [],
+  subject: "",
+  body: "",
+};
+
+export default function AddFormMail({
+  mail,
+  handleClose,
+}: {
+  mail?: Mail;
+  handleClose?: any;
+}) {
+  const [selected, setSelected] = useState<Array<string>>([]);
+  const { id, handleUpdateMail, handleCreateMail } = useMailContext();
+  async function onSubmit(values: any) {
+    if (mail?.id) {
+      const newCC = values.cc.join(",");
+      const valuesEdit = { ...values, cc: newCC };
+      await handleUpdateMail(valuesEdit, mail?.id);
+      formik.resetForm();
+      handleClose();
+    } else {
+      const newCC = values.cc.join(",");
+      const newValues = { ...values, cc: newCC };
+      await handleCreateMail(newValues);
+      formik.resetForm();
+      handleClose();
+    }
+  }
+  const formik = useFormik({
+    initialValues: mail ? mail : initialValues,
+    validationSchema: mailSchema,
+    onSubmit,
+  });
+
   const { values, handleChange, touched, errors, handleSubmit, setFieldValue } =
     formik;
-  const { data: mail, isLoading } = useGetMailByIdQuery(id);
-  const mailEdit = mail?.data;
   useEffect(() => {
-    if (!isLoading) {
-      if (id) {
-        const emails = mailEdit?.cc?.split(",");
-        setSelected(emails);
-        setFieldValue("name", mailEdit?.name);
-        setFieldValue("cc", emails);
-        setFieldValue("subject", mailEdit?.subject);
-        setFieldValue("body", mailEdit?.body);
-      }
+    if (mail) {
+      const emails = mail?.cc?.split(",");
+      setSelected(emails);
     }
-  }, [mail, id, isLoading]);
-  if (id && isLoading) return <Loading />;
+  }, [mail]);
   return (
     <form
       onSubmit={handleSubmit}
@@ -69,7 +95,7 @@ export default function AddFormMail() {
         placeholder="Veuiller saisir le corps de mail"
       />
       <TagsInput
-        value={selected || ""}
+        value={selected}
         onChange={(value) => setFieldValue("cc", value, true)}
         name="selected"
         placeHolder="Adresse email"

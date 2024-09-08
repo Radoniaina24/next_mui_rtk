@@ -1,12 +1,11 @@
 import { Modal, Box, IconButton } from "@mui/material";
 import CancelPresentationOutlinedIcon from "@mui/icons-material/CancelPresentationOutlined";
 import React from "react";
-import { useMailContext } from "@/lib/context/MailContext";
 const style = {
   position: "absolute",
-  top: "50%",
+  top: "35%",
   left: "50%",
-  width: 500,
+  width: 380,
   transform: "translate(-50%, -50%)",
   bgcolor: "background.paper",
   border: "none",
@@ -14,12 +13,19 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-export default function ModalMail({ children }: any) {
-  const { showModal, handleCloseModalMail } = useMailContext();
+export default function DialogPermission({
+  open,
+  onClose,
+  children,
+}: {
+  open: boolean;
+  onClose: () => void;
+  children: React.ReactNode;
+}) {
   return (
     <Modal
-      open={showModal}
-      onClose={handleCloseModalMail}
+      open={open}
+      onClose={onClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
@@ -33,7 +39,7 @@ export default function ModalMail({ children }: any) {
             outline: "none !important",
           }}
         >
-          <IconButton color="error" onClick={handleCloseModalMail}>
+          <IconButton color="error" onClick={onClose}>
             <CancelPresentationOutlinedIcon />
           </IconButton>
         </Box>
