@@ -9,7 +9,7 @@ export default function CustomToolbar() {
   return (
     <GridToolbarContainer
       sx={{
-        justifyContent: "space-between",
+        justifyContent: "end",
         // backgroundColor: "#f5f5f5",
         padding: "8px",
         marginY: "1rem",
@@ -18,10 +18,10 @@ export default function CustomToolbar() {
       {/* <GridToolbarColumnsButton /> */}
       {/* <GridToolbarExport /> */}
 
-      <Box>
+      {/* <Box>
         <GridToolbarColumnsButton />
         <GridToolbarFilterButton />
-      </Box>
+      </Box> */}
 
       <GridToolbarQuickFilter
         placeholder="recherche ..."

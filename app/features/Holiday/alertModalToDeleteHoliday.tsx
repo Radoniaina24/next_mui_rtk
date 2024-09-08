@@ -16,11 +16,15 @@ const style = {
   p: 4,
 };
 export default function AlertlDeleteHoliday() {
-  const { showAlert, handleCloseAlertToDeleteHoliday, id, setId } =
-    useHolidayContext();
-  const [deleteHoliday, responseDeleteHoliday] = useDeleteHolidayMutation();
+  const {
+    showAlert,
+    handleCloseAlertToDeleteHoliday,
+    id,
+    setId,
+    handleDeleteHoliday,
+  } = useHolidayContext();
   async function delHoliday() {
-    await deleteHoliday(id);
+    await handleDeleteHoliday(id);
     handleCloseAlertToDeleteHoliday();
     setId("");
   }
@@ -33,7 +37,7 @@ export default function AlertlDeleteHoliday() {
     >
       <Box sx={style}>
         <Typography sx={{ textAlign: "center" }}>
-          Êtes-vous sûr de vouloir supprimer définitivement cet element?
+          Êtes-vous sûr de vouloir supprimer ?
         </Typography>
         <Box
           sx={{

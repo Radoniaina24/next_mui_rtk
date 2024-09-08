@@ -6,7 +6,6 @@ export const holidaySchema = yup.object({
     .min(3, "La valeur doit être superieur de 3 caractères")
     .required("Ce champ est requis"),
   date: string().required("Ce champ est requis"),
-  dayPart: number().required("Ce champ est requis"),
 });
 // yup Permission
 export const permissionSchema = yup.object({

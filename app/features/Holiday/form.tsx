@@ -4,31 +4,66 @@ import { Box, FormControl, TextField, Typography } from "@mui/material";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import FormLabel from "@mui/material/FormLabel";
 import { DatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import React, { useEffect } from "react";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { FormHelperText } from "@mui/material";
-import Loading from "@/app/components/progress/loading";
 import SubmitButtonHoliday from "./submitBtn";
-export default function AddFormHoliday() {
-  const { formik, responseAddHoliday, id } = useHolidayContext();
+import Holiday from "@/app/interface/holiday";
+import { useFormik } from "formik";
+import * as yup from "yup";
+const initialValues: Omit<Holiday, "id"> = {
+  name: "",
+  date: dayjs().toDate().toDateString(),
+  dayType: 1,
+};
+export const holidaySchema = yup.object({
+  name: yup.string().required("Ce champ est requis"),
+  date: yup.string().required("Ce champ est requis"),
+});
+
+export default function AddFormHoliday({
+  holiday,
+  handleClose,
+}: {
+  holiday?: Holiday;
+  handleClose?: any;
+}) {
+  const { id, handleUpdateHoliday, handleCreateHoliday } = useHolidayContext();
+  async function onSubmit(values: any) {
+    if (holiday?.id) {
+      const dateString = dayjs(values.date).toDate().toLocaleDateString();
+      const editHoliday = {
+        ...values,
+        dayType: parseInt(values.dayType),
+        date: dateString,
+      };
+      await handleUpdateHoliday(editHoliday, holiday?.id);
+      formik.resetForm();
+      handleClose();
+    } else {
+      const dateString = dayjs(values.date).toDate().toLocaleDateString();
+      const newHoliday = {
+        ...values,
+        dayType: parseInt(values.dayType),
+        date: dateString,
+      };
+      await handleCreateHoliday(newHoliday);
+      formik.resetForm();
+      handleClose();
+    }
+  }
+  const formik = useFormik({
+    initialValues: holiday ? holiday : initialValues,
+    validationSchema: holidaySchema,
+    onSubmit,
+  });
+
   const { values, handleChange, touched, errors, handleSubmit, setFieldValue } =
     formik;
-  const { data: holiday, isLoading } = useGetHolidayByIdQuery(id);
-  const holidayEdit = holiday?.data;
 
-  useEffect(() => {
-    if (id) {
-      setFieldValue("name", holidayEdit?.name);
-      setFieldValue("date", holidayEdit?.date);
-      setFieldValue("dayPart", holidayEdit?.dayPart);
-    }
-  }, [holiday, id]);
-
-  if (id && isLoading) return <Loading />;
   return (
     <form
       onSubmit={handleSubmit}
@@ -61,11 +96,12 @@ export default function AddFormHoliday() {
             name="date"
             label="Date"
             onChange={handleChange}
+            defaultValue={dayjs(values.date) || ""}
             value={dayjs(values.date) || ""}
             onChange={(value) => setFieldValue("date", value, true)}
           />
-          {touched.startDate && Boolean(errors.startDate) ? (
-            <FormHelperText error>{errors.startDate}</FormHelperText>
+          {touched.date && Boolean(errors.date) ? (
+            <FormHelperText error>{errors.date}</FormHelperText>
           ) : (
             ""
           )}
@@ -77,20 +113,20 @@ export default function AddFormHoliday() {
         <RadioGroup
           row
           aria-labelledby="demo-row-radio-buttons-group-label"
-          name="dayPart"
-          value={values?.dayPart || ""}
+          name="dayType"
+          value={values?.dayType ?? 0}
           onChange={(value) =>
-            setFieldValue("dayPart", value?.target?.value, true)
+            setFieldValue("dayType", value?.target?.value, true)
           }
         >
           <FormControlLabel
-            value="0"
+            value={0}
             control={<Radio />}
             label="Demi-journée"
             required
           />
           <FormControlLabel
-            value="1"
+            value={1}
             control={<Radio />}
             label="Toute la journée"
             required

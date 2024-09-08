@@ -14,12 +14,19 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-export default function ModalHoliday({ children }: any) {
-  const { showModal, handleCloseModalHoliday } = useHolidayContext();
+export default function DialogHoliday({
+  open,
+  onClose,
+  children,
+}: {
+  open: boolean;
+  onClose: () => void;
+  children: React.ReactNode;
+}) {
   return (
     <Modal
-      open={showModal}
-      onClose={handleCloseModalHoliday}
+      open={open}
+      onClose={onClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
@@ -33,7 +40,7 @@ export default function ModalHoliday({ children }: any) {
             outline: "none !important",
           }}
         >
-          <IconButton color="error" onClick={handleCloseModalHoliday}>
+          <IconButton color="error" onClick={onClose}>
             <CancelPresentationOutlinedIcon />
           </IconButton>
         </Box>

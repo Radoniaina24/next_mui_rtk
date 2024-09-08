@@ -66,7 +66,8 @@ const MSidebar = ({
             >
               {/* Logo */}
 
-              {/* <Logo img="/images/logos/dark-logo.svg" /> */}
+              <Logo img="/images/logos/dark-logo.svg">All For One</Logo>
+
               <Box>
                 {/* Sidebar Items */}
 
@@ -108,7 +109,7 @@ const MSidebar = ({
         >
           {/* Logo */}
 
-          {/* <Logo img="/images/logos/dark-logo.svg" /> */}
+          <Logo img="/images/logos/dark-logo.svg">All For One</Logo>
 
           {/* Sidebar Items */}
 

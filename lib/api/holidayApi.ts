@@ -8,7 +8,7 @@ export const holidayAPI = createApi({
   }),
   endpoints: (builder) => ({
     getHoliday: builder.query({
-      query: () => {
+      query: ({ limit, page }: { limit?: any; page?: any }) => {
         return {
           url: `holiday`,
           method: "GET",

@@ -10,11 +10,6 @@ import {
 } from "../api/holidayApi";
 import { useSnackbar } from "./SnackbarContext";
 import dayjs from "dayjs";
-const initialValues: Omit<Holiday, "id"> = {
-  name: "",
-  date: dayjs().toDate().toDateString(),
-  dayPart: 0,
-};
 const HolidayContext = createContext<any | null>(null);
 function HolidayProvider({ children }: { children: React.ReactNode }) {
   // utilisation du context snackbar
@@ -57,8 +52,8 @@ function HolidayProvider({ children }: { children: React.ReactNode }) {
     setId("");
   }
   // recupération de l'id du holiday a editer ou a supprimmer
-  const [id, setId] = useState("");
-
+  const [holidayEdit, setHolidayToEdit] = useState({});
+  const [id, setId] = useState();
   //Modale holiday
   const [showModal, setShowModal] = useState(false);
   function handleCloseModalHoliday() {
@@ -69,37 +64,12 @@ function HolidayProvider({ children }: { children: React.ReactNode }) {
   function handleOpenModalHoliday() {
     setShowModal(true);
   }
-  // function pour la soumission du formulaire
-  async function onSubmit(values: any) {
-    if (id) {
-      await handleUpdateHoliday(values, id);
-      formik.resetForm();
-      handleCloseModalHoliday();
-    } else {
-      const dateString = dayjs(values.date).toDate().toLocaleDateString();
-      const newHoliday = {
-        ...values,
-        dayPart: parseInt(values.dayPart),
-        date: dateString,
-      };
-      await handleCreateHoliday(newHoliday);
-      formik.resetForm();
-      handleCloseModalHoliday();
-    }
-  }
-  const formik = useFormik({
-    initialValues,
-    validationSchema: holidaySchema,
-    onSubmit,
-  });
-
   return (
     <HolidayContext.Provider
       value={{
         showModal,
         handleCloseModalHoliday,
         handleOpenModalHoliday,
-        formik,
         responseAddHoliday,
         id,
         setId,
@@ -108,6 +78,10 @@ function HolidayProvider({ children }: { children: React.ReactNode }) {
         handleCloseAlertToDeleteHoliday,
         handleDeleteHoliday,
         responseUpdateHoliday,
+        holidayEdit,
+        setHolidayToEdit,
+        handleCreateHoliday,
+        handleUpdateHoliday,
       }}
     >
       {children}

@@ -14,11 +14,18 @@ import CustomToolbar from "./CustomToolbar";
 export default function GridData({
   data,
   columns,
+  onPage,
+  onLimit,
 }: //   isLoading,
 {
   data: any;
   columns: GridColDef[];
+  onPage: any;
+  onLimit: any;
 }) {
+  function handleChangeLimit(params: any) {
+    onLimit(params);
+  }
   return (
     <DataGrid
       sx={{
@@ -82,11 +89,12 @@ export default function GridData({
         filterPanelOperator: "Operation",
       }}
       //   rowSelection={false}
-      //   pageSizeOptions={[10, 50, 100]}
-      //   onPaginationModelChange={(params) => {
-      //     console.log(params.pageSize);
-      //   }}
-      //   pagination={true}
+
+      pageSizeOptions={[5, 10, 20, 50, 100]}
+      onPaginationModelChange={(params) => {
+        handleChangeLimit(params.pageSize);
+      }}
+      pagination={true}
       // onRowClick={handleClick}
     />
   );
