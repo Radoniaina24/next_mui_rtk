@@ -15,7 +15,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 const initialValues: Omit<Holiday, "id"> = {
   name: "",
-  date: dayjs().toDate().toDateString(),
+  date: dayjs(),
   dayType: 1,
 };
 export const holidaySchema = yup.object({
@@ -44,6 +44,7 @@ export default function AddFormHoliday({
       handleClose();
     } else {
       const dateString = dayjs(values.date).toDate().toLocaleDateString();
+      console.log(dateString);
       const newHoliday = {
         ...values,
         dayType: parseInt(values.dayType),
@@ -62,7 +63,7 @@ export default function AddFormHoliday({
 
   const { values, handleChange, touched, errors, handleSubmit, setFieldValue } =
     formik;
-
+  console.log(errors);
   return (
     <form
       onSubmit={handleSubmit}
@@ -89,20 +90,21 @@ export default function AddFormHoliday({
         error={touched.name && Boolean(errors.name)}
         helperText={touched.name && errors.name}
       />
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="fr">
         <FormControl fullWidth sx={{ marginY: "1rem" }}>
           <DatePicker
             name="date"
             label="Date"
             onChange={handleChange}
-            defaultValue={dayjs(values.date) || ""}
-            value={dayjs(values.date) || ""}
+            value={dayjs(values.date, "DD/MM/YYYY")}
             onChange={(value) => setFieldValue("date", value, true)}
+            format="DD/MM/YYYY"
           />
+
           {touched.date && Boolean(errors.date) ? (
             <FormHelperText error>{errors.date}</FormHelperText>
           ) : (
-            ""
+            <FormHelperText>Format DD/MM/YYYY</FormHelperText>
           )}
         </FormControl>
       </LocalizationProvider>
