@@ -1,30 +1,42 @@
-import { Box, Button } from "@mui/material";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import {
   DataGrid,
+  GridCallbackDetails,
   GridColDef,
+  GridRowParams,
   GridToolbarColumnsButton,
   GridToolbarContainer,
   GridToolbarExport,
   GridToolbarFilterButton,
   GridToolbarQuickFilter,
+  MuiEvent,
 } from "@mui/x-data-grid";
 import React from "react";
 import CustomToolbar from "./CustomToolbar";
 export default function GridData({
   data,
   columns,
-  onPage,
+  count,
   onLimit,
+  onPage,
+  pageState,
+  pageLimit,
 }: //   isLoading,
 {
   data: any;
   columns: GridColDef[];
-  onPage?: any;
-  onLimit?: any;
+  count?: number;
+  onLimit: any;
+  onPage: any;
+  pageState: any;
+  pageLimit: any;
 }) {
   function handleChangeLimit(params: any) {
-    onLimit(params);
+    onLimit(params.pageSize);
+    if (params.page === 0) {
+      onPage(1);
+    } else {
+      onPage(params.page + 1);
+    }
   }
   return (
     <DataGrid
@@ -59,9 +71,6 @@ export default function GridData({
         pagination: {
           labelRowsPerPage: "Ligne par page",
         },
-        // toolbar: {
-        //   showQuickFilter: true,
-        // },
       }}
       localeText={{
         noRowsLabel: "Aucun résultat trouvé.",
@@ -92,10 +101,17 @@ export default function GridData({
 
       pageSizeOptions={[5, 10, 20, 50, 100]}
       onPaginationModelChange={(params) => {
-        handleChangeLimit(params.pageSize);
+        handleChangeLimit(params);
       }}
+      initialState={{
+        ...data.initialState,
+        pagination: {
+          paginationModel: { pageSize: pageLimit, page: pageState - 1 },
+        },
+      }}
+      paginationMode="server"
       pagination={true}
-      // onRowClick={handleClick}
+      rowCount={count}
     />
   );
 }

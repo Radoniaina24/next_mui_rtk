@@ -8,7 +8,17 @@ export const holidayAPI = createApi({
   }),
   endpoints: (builder) => ({
     getHoliday: builder.query({
-      query: ({ limit, page }: { limit?: any; page?: any }) => {
+      query: (params) => {
+        return {
+          url: `holiday`,
+          method: "GET",
+          params,
+        };
+      },
+      providesTags: ["parametre"],
+    }),
+    getAllHoliday: builder.query({
+      query: () => {
         return {
           url: `holiday`,
           method: "GET",
@@ -64,4 +74,5 @@ export const {
   useAddHolidayMutation,
   useDeleteHolidayMutation,
   useUpdateHolidayMutation,
+  useGetAllHolidayQuery,
 } = holidayAPI;

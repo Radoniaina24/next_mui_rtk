@@ -2,7 +2,10 @@
 import { GridColDef } from "@mui/x-data-grid";
 import { Box, CircularProgress, Typography } from "@mui/material";
 import React, { useState } from "react";
-import { useGetHolidayQuery } from "@/lib/api/holidayApi";
+import {
+  useGetAllHolidayQuery,
+  useGetHolidayQuery,
+} from "@/lib/api/holidayApi";
 import GridData from "@/app/components/DataGrid/dataGrid";
 import { useHolidayContext } from "@/lib/context/HolidayContext";
 import { EditButton } from "./EditButton";
@@ -11,9 +14,10 @@ import { DeleteButton } from "./DeleteButton";
 export default function HolidayList() {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
-  const { data, isLoading } = useGetHolidayQuery({ limit, page });
+  const { data: Allholiday, isLoading: loading } = useGetAllHolidayQuery("");
+  const count = Allholiday?.data?.length;
+  const { data, isLoading } = useGetHolidayQuery({ limit: limit, page: page });
   const { handleDeleteHoliday } = useHolidayContext();
-
   const columns: GridColDef[] = [
     { field: "name", headerName: "Nom", width: 300 },
     { field: "date", headerName: "Date", width: 300 },
@@ -64,12 +68,15 @@ export default function HolidayList() {
         </Typography>
         <AddButton />
       </Box>
-      <Box sx={{ height: "500px" }}>
+      <Box sx={{ height: "600px" }}>
         <GridData
           data={data}
           columns={columns}
-          onPage={setPage}
+          count={count}
           onLimit={setLimit}
+          onPage={setPage}
+          pageState={page}
+          pageLimit={limit}
         />
       </Box>
     </Box>

@@ -63,10 +63,11 @@ export default function AddFormMail({
         {id ? "Modification du mail" : "Nouveau mail"}
       </Typography>
       <TextField
+        label="Type de mail"
         margin="dense"
         fullWidth
         name="name"
-        placeholder="Veuiller entrer le type de mail"
+        placeholder="Veuillez entrer le type de mail."
         value={values?.name || ""}
         onChange={handleChange}
         error={touched.name && Boolean(errors.name)}
@@ -74,6 +75,7 @@ export default function AddFormMail({
       />
 
       <TextField
+        label="Sujet"
         margin="dense"
         fullWidth
         name="subject"
@@ -81,9 +83,10 @@ export default function AddFormMail({
         onChange={handleChange}
         error={touched.subject && Boolean(errors.subject)}
         helperText={touched.subject && errors.subject}
-        placeholder="Veuiller entrer le sujet"
+        placeholder="Veuillez entrer le sujet."
       />
       <TextField
+        label="Corps du mail"
         margin="dense"
         fullWidth
         name="body"
@@ -92,7 +95,7 @@ export default function AddFormMail({
         error={touched.body && Boolean(errors.body)}
         helperText={touched.body && errors.body}
         sx={{ marginBottom: ".8rem" }}
-        placeholder="Veuiller saisir le corps de mail"
+        placeholder="Veuillez renseigner le corps du message."
       />
       <TagsInput
         value={selected}

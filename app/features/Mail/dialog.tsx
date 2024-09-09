@@ -3,7 +3,7 @@ import CancelPresentationOutlinedIcon from "@mui/icons-material/CancelPresentati
 import React from "react";
 const style = {
   position: "absolute",
-  top: "35%",
+  top: "45%",
   left: "50%",
   width: 380,
   transform: "translate(-50%, -50%)",

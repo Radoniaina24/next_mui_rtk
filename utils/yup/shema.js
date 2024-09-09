@@ -9,11 +9,11 @@ export const holidaySchema = yup.object({
 });
 // yup Permission
 export const permissionSchema = yup.object({
-  event: string().required("Ce champ est requis"),
+  event: string().required("Cet événement est requis."),
   dayCount: number("La valeur doit être un nombre superieur de 0")
     .moreThan(0, "La valeur doit être superieur de 1")
     .required("Ce champ est requis"),
-  voucher: string().required("Ce champ est requis"),
+  voucher: string().required("Cette pièce justificative est requise."),
 });
 
 // yup mail

@@ -60,7 +60,7 @@ export default function MailList() {
         <AddButton />
       </Box>
 
-      <Box sx={{ height: 650 }}>
+      <Box sx={{ height: 600 }}>
         <GridData data={data} columns={columns} />
       </Box>
     </Box>
